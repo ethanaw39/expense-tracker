@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Expense Tracker</h1>
+
+    <div class="container">
+        <div class="add-expense-form">
+            <h2>Add New Expense</h2>
+            <form action="/expenses" method="post">
+                <label>Expense Name:</label>
+                <input type="text" name="expenseName" required><br>
+
+                <label>Amount:</label>
+                <input type="number" step="0.01" name="amount" required><br>
+
+                <label>Category:</label>
+                <select name="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Food & Drink">Food & Drink</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Health">Health</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Services">Services</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+                </select><br>
+
+                <label>Date:</label>
+                <input type="date" name="date" required><br>
+
+                <button type="submit">Add Expense</button>
+            </form>
+        </div>
+
+        <div class="expense-table">
+            <h2>Expenses</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Expense Name</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="expense : ${expenses}">
+                        <td th:text="${expense.expenseName}"></td>
+                        <td th:text="${expense.amount}"></td>
+                        <td th:text="${expense.category}"></td>
+                        <td th:text="${expense.date}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="filter-form">
+            <h2>Filter Expenses</h2>
+            <form method="get" action="/expenses">
+                <label>Expense Name:</label>
+                <input type="text" name="expenseName" placeholder="Expense name"><br>
+
+                <label>Minimum Amount:</label>
+                <input type="number" name="minAmount" placeholder="Min amount" step="0.01"><br>
+
+                <label>Maximum Amount:</label>
+                <input type="number" name="maxAmount" placeholder="Max amount" step="0.01"><br>
+
+                <label>Category:</label>
+                <select name="category">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Food & Drink">Food & Drink</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Health">Health</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Services">Services</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+                </select><br>
+
+                <label>Start Date:</label>
+                <input type="date" name="startDate"><br>
+
+                <label>End Date:</label>
+                <input type="date" name="endDate"><br>
+
+                <button type="submit">Search</button>
+            </form>
+			
+			<form method="get" action="/expenses" style="margin-top: 10px;">
+				<button type="submit" style="background-color: #2b2b2b;">Show All Expenses</button>
+			</form>
+        </div>
+    </div>
+</body>
+</html>
