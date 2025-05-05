@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar target/ewilson_final-0.0.1-SNAPSHOT.jar
